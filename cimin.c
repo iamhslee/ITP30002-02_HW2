@@ -18,10 +18,10 @@ int main(int argc, char* argv[]) {
     }
     else {
         // If there is an argument, parse it.
-        char* testPath = NULL;
-        char* crashStr = NULL;
-        char* resultPath = NULL;
-        char* program = NULL;
+        char* testPath = NULL;      // -i
+        char* crashStr = NULL;      // -m
+        char* resultPath = NULL;    // -o
+        char* execFile = NULL;      // executable file
 
         int opt;
         while((opt = getopt(argc, argv, "hi:m:o:")) != -1) {
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
                     break;
             }
         }
-        program = argv[optind];
+        execFile = argv[optind];
     }
 
     // TODO: Implement the main logic of the program.

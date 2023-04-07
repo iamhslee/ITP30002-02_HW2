@@ -1,13 +1,13 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
 SOURCE = cimin.c
 OUTPUT = cimin
 
 all:
-	$(CC) $(SOURCE) $(CFLAGS) -o $(OUTPUT)
+	$(CC) $(SOURCE) -o $(OUTPUT)
 
 debug:
-	$(CC) $(SOURCE) $(CFLAGS) -DDEBUG -o $(OUTPUT)
+	$(CC) $(SOURCE) -Wall -Wextra -DDEBUG -o $(OUTPUT)
 
 clean:
-	rm -f cimin cimin.o
+	rm -f cimin
+	rm -rf cimin.dSYM

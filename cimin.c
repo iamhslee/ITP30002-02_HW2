@@ -195,9 +195,9 @@ char* execute(char* input) {
     int pid = fork();
     if(pid == 0) {
         // Child process
-        close(parentFD[1]);
-        close(childFD[0]);
-        dup(parentFD[0]);
+
+        dup2(parentFD[0], STDIN_FILENO);
+        dup2(childFD[1], STDOUT_FILENO);
 
         execv(test.program, test.execOptions);
     } else {
@@ -206,7 +206,22 @@ char* execute(char* input) {
         close(childFD[1]);
         write(parentFD[1], input, strlen(input));
 
-        wait(NULL);
+        int status = waitpid(pid, &status, 0);
+
+        if(test.isFirstRun) {
+            sleep(3);
+            if(status == 0) {
+                kill(pid, SIGKILL);
+                printf("[CIMIN] Error: The program does not crash within 3 seconds.\n");
+                printf("[CIMIN]        This happend when the program has a infinite loop.\n");
+                printf("[CIMIN]        Please check the program and try again.\n");
+                printf("[CIMIN] Exiting...\n");
+                exit(1);
+            }
+            test.isFirstRun = 0;
+        } else {
+            wait(NULL);
+        }
 
         read(childFD[0], output, 1024);
     }

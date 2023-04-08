@@ -1,6 +1,3 @@
-##### Test Makefile #####
-
-
 -include config.mk
 
 all: libjsmn.a 
@@ -40,20 +37,3 @@ clean:
 	rm -f jsondump
 
 .PHONY: all clean test
-
-##### Main Code (CIMIN) #####
-
-CC = gcc
-CFLAGS = -Wall -Wextra
-SOURCE = cimin.c
-OUTPUT = cimin
-
-all:
-	$(CC) $(SOURCE) $(CFLAGS) -o $(OUTPUT)
-
-debug:
-	$(CC) $(SOURCE) $(CFLAGS) -DDEBUG -o $(OUTPUT)
-
-clean:
-	rm -f cimin
-	rm -rf cimin.dSYM
